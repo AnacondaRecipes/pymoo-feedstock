@@ -11,20 +11,14 @@ source:
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - alive-progress
-    - autograd >=1.4
-    - cma ==3.2.2
-    - deprecated
-    - dill
-    - matplotlib >=3
-    - numpy >=1.15
     - pip
     - python
-    - scipy >=1.1
+    - setuptools
+    - wheel
   run:
     - alive-progress
     - autograd >=1.4
@@ -79,6 +73,10 @@ test:
     - pymoo.vendor
     - pymoo.visualization
     - pymoo.visualization.video
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://pymoo.org
