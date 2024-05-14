@@ -80,7 +80,7 @@ test:
     - pymoo.visualization.video
   commands:
     - pip check
-    - python -c "from pymoo.util.function_loader import is_compiled;print('Compiled Extensions: ', is_compiled())"
+    - python -c "from pymoo.util.function_loader import is_compiled;print(is_compiled())"
   requires:
     - pip
 
