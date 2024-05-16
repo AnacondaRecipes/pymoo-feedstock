@@ -1,0 +1,101 @@
+{% set name = "pymoo" %}
+{% set version = "0.6.1.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 65637ea2a49fb836b638fd5d63a5da4f3bfa713fe8b283e0c22c5e9af3b024db
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+  host:
+    - cython
+    - numpy {{ numpy }}
+    - pip
+    - python
+    - setuptools
+    - wheel
+  run:
+    - alive-progress
+    - autograd >=1.4
+    - cma ==3.2.2
+    - deprecated
+    - dill
+    - matplotlib >=3
+    - numpy >=1.15
+    - python
+    - scipy >=1.1
+
+test:
+  imports:
+    - pymoo
+    - pymoo.algorithms
+    - pymoo.algorithms.base
+    - pymoo.algorithms.moo
+    - pymoo.algorithms.soo
+    - pymoo.algorithms.soo.convex
+    - pymoo.algorithms.soo.nonconvex
+    - pymoo.algorithms.soo.univariate
+    - pymoo.constraints
+    - pymoo.core
+    - pymoo.cython
+    - pymoo.cython.vendor
+    - pymoo.decomposition
+    - pymoo.experimental
+    - pymoo.experimental.algorithms
+    - pymoo.gradient
+    - pymoo.gradient.toolbox
+    - pymoo.indicators
+    - pymoo.indicators.hv
+    - pymoo.mcdm
+    - pymoo.operators
+    - pymoo.operators.crossover
+    - pymoo.operators.mutation
+    - pymoo.operators.repair
+    - pymoo.operators.sampling
+    - pymoo.operators.selection
+    - pymoo.operators.survival
+    - pymoo.operators.survival.rank_and_crowding
+    - pymoo.problems
+    - pymoo.problems.dynamic
+    - pymoo.problems.many
+    - pymoo.problems.multi
+    - pymoo.problems.single
+    - pymoo.termination
+    - pymoo.util
+    - pymoo.util.display
+    - pymoo.util.nds
+    - pymoo.util.ref_dirs
+    - pymoo.vendor
+    - pymoo.visualization
+    - pymoo.visualization.video
+  commands:
+    - pip check
+    - python -c "from pymoo.util.function_loader import is_compiled;print(is_compiled())"
+  requires:
+    - pip
+
+about:
+  home: https://pymoo.org
+  license: Apache-2.0
+  license_family: APACHE
+  license_file: LICENSE
+  summary: Multi-Objective Optimization in Python
+  description: |
+    NSGA2, NSGA3, R-NSGA3, MOEAD, Genetic Algorithms (GA), 
+    Differential Evolution (DE), CMAES, PSO
+  doc_url: https://pymoo.org/
+  dev_url: https://github.com/anyoptimization/pymoo
+
+extra:
+  recipe-maintainers:
+    - psteyer
